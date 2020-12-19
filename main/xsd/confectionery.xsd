@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+		targetNamespace="http://www.example.org/confectionery_main" 
+		xmlns:tns="http://www.example.org/confectionery_main" 
+		elementFormDefault="unqualified">
+	<element name="Cakes">
+		<complexType>
+			<sequence>
+				<element name="Order" maxOccurs="unbounded">
+					<complexType>
+						<sequence>
+							<element name="Id" type="positiveInteger"></element>
+							<element name="OrderStatus" type="tns:OrderStatus"></element>
+							<element name="PaymentType" type="tns:PaymentType"></element>
+							<element name="OrderDate" type="date" />
+							<element name="DeliveryClient" type="tns:Client" />
+							<element name="SendingClient" type="tns:Client" />
+							<element name="DeliveryDepartment" type="tns:Department" />
+							<element name="SendingDepartment" type="tns:Department" />
+							<element name="Product" type="tns:Product" />
+						</sequence>
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+
+	<!-- Order status -->
+	<complexType name="OrderStatus">
+		<sequence>
+			<element name="Id" type="positiveInteger"></element>
+			<element name="StatusName" type="tns:OrderStatusValues"></element>
+		</sequence>
+	</complexType>
+
+	<simpleType name="OrderStatusValues">
+		<restriction base="string">
+			<enumeration value="Delivered"></enumeration>
+			<enumeration value="Processing"></enumeration>
+			<enumeration value="Delivering"></enumeration>
+			<enumeration value="UnDelivered"></enumeration>
+		</restriction>
+	</simpleType>
+
+	<!-- Payment Type -->
+	<complexType name="PaymentType">
+		<sequence>
+			<element name="Id" type="positiveInteger"></element>
+			<element name="PaymentName" type="tns:PaymentTypeName"></element>
+		</sequence>
+	</complexType>
+
+	<simpleType name="PaymentTypeName">
+		<restriction base="string">
+			<enumeration value="Card"></enumeration>
+			<enumeration value="Cach"></enumeration>
+		</restriction>
+	</simpleType>
+
+	<!-- Gender -->
+	<complexType name="Gender">
+		<sequence>
+			<element name="Id" type="positiveInteger"></element>
+			<element name="PaymentName" type="tns:GenderNames"></element>
+		</sequence>
+	</complexType>
+
+	<simpleType name="GenderNames">
+		<restriction base="string">
+			<enumeration value="Male"></enumeration>
+			<enumeration value="Female"></enumeration>
+		</restriction>
+	</simpleType>
+
+	<!-- Client -->
+	<complexType name="Client">
+		<sequence>
+			<element name="Id" type="positiveInteger"></element>
+			<element name="FirstName" type="string"></element>
+			<element name="LastName" type="string"></element>
+			<element name="Contact">
+				<complexType>
+					<choice>
+						<element name="Email" type="string" />
+						<element name="Phone" type="string" />
+					</choice>
+				</complexType>
+			</element>
+			<element name="RegistrationDate" type="date" />
+			<element name="Discount" type="float"></element>
+			<element name="Gender" type="tns:Gender"></element>
+		</sequence>
+	</complexType>
+
+	<!-- Department -->
+	<complexType name="Department">
+		<sequence>
+			<element name="Id" type="positiveInteger"></element>
+			<element name="Name" type="string"></element>
+			<element name="City" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Product">
+		<all>
+			<element name="Name">
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="256" />
+						<pattern value="[a-zA-Z]*" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Width" type="float"></element>
+			<element name="Height" type="float"></element>
+			<element name="Long" type="float"></element>
+			<element name="Weight" type="float"></element>
+		</all>
+	</complexType>
+</schema>
