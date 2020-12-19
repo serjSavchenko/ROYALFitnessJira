@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+		targetNamespace="http://www.example.org/confectionery_main" 
+		xmlns:tns="http://www.example.org/confectionery_main" 
+		elementFormDefault="qualified">
+	<element name="medicine">
+    <complexType>
+       <sequence>
+         <element name="medicine" maxOccurs="unbounded">
+           <complexType>
+             <sequence>
+               <element name="title">
+                 <simpleType>
+		           <restriction base="string">
+			           <pattern value="[A-Za-z ]+" />
+			           <whiteSpace value="replace" />
+			           <minLength value="4" />
+			           <maxLength value="50" />
+                   </restriction>
+                 </simpleType>
+               </element>
+  			   <element name="address">
+  				  <simpleType>
+					<restriction base="string">
+					  <whiteSpace value="replace" />
+					  <maxLength value="150" />
+                   </restriction>
+                 </simpleType>
+               </element>
+  			   <element name="product" minOccurs="1" maxOccurs="1">
+                 <complexType>
+                   <all>
+  					   <element name="count">
+	                       <simpleType>
+	                         <restriction base="integer">
+	                           <minExclusive value="1" />
+	                         </restriction>
+	                       </simpleType>
+				  	   </element>
+				  	   <element name="price">
+	                       <complexType>
+	                         <simpleContent>
+	                            <extension base="decimal">
+	                              <attribute name="currency" default="UAH">
+	                                <simpleType>
+	                               <restriction base="string">
+	                                  <minLength value="0"/>
+	                               </restriction>
+	                              </simpleType>
+	                              </attribute>
+	                            </extension>
+	                          </simpleContent>
+	                       </complexType>
+  					    </element>
+  						<element name="days">
+   							<complexType>
+      							<choice>
+			  						<element name="monthday">
+			                           <simpleType>
+			                             <restriction base="decimal">
+			                               <minExclusive value="5.0" />
+			                               <maxExclusive value="10.0" />
+			                             </restriction>
+			                           </simpleType>
+	                         		</element>
+	    							<element name="yearmonth">
+			                           <simpleType>
+			                             <restriction base="decimal">
+			                               <minExclusive value="25.0" />
+			                               <maxExclusive value="50.0" />
+			                             </restriction>
+			                           </simpleType>
+	                         		</element>
+    							</choice>
+    						</complexType>
+    					</element>
+  					<element name="sale">
+                       <simpleType>
+                         <restriction base="string">
+                           <enumeration value="true" />
+                           <enumeration value="false" />
+                         </restriction>
+                       </simpleType>
+            		</element>
+           		</all>
+         	</complexType>
+         </element>
+         <element name="medicines">
+         	<complexType>
+      			<sequence>
+  					<element name="medicine" minOccurs="1" maxOccurs="5">
+                       <complexType>
+		                         	<all>
+			                           <element name="producer">
+			                             	<simpleType>
+			                               		<restriction base="string">
+			                                 		<minLength value="3" />
+			                                 		<maxLength value="50" />
+			                               		</restriction>
+			                           		</simpleType>
+			                           </element>
+			                           <element name="count_pils">
+			                             	<simpleType>
+			                               		<restriction base="integer">
+			                                 		<totalDigits value="2" />
+			                               		</restriction>
+			                            	</simpleType>
+			                            </element>
+			                           	<element name="start_age">
+			                            	<simpleType>
+			                               		<restriction base="integer">
+			                                 		<totalDigits value="2" />
+			                                	</restriction>
+			                            	</simpleType>
+			                            </element>
+		                           		<element name="end_age">
+		                             		<simpleType>
+		                               			<restriction base="integer">
+		                                 			<totalDigits value="2" />
+		                               			</restriction>
+		                             		</simpleType>
+		                           		</element>
+		                           		<element name="doctor_agree">
+		                             		<simpleType>
+		                               			<restriction base="boolean">
+		                                 		</restriction>
+		                             		</simpleType>
+		                           		</element>
+		                         	</all>
+
+									<attribute name="type">
+					                    <simpleType>
+					                         <restriction base="string">
+					                           <enumeration value="antiviral" />
+					                           <enumeration value="ataraxic" />
+					                           <enumeration value="vitamins" />
+					                           <enumeration value="antibiotics" />
+                         					</restriction>
+                        				</simpleType>
+                       				</attribute>
+                      			</complexType>
+  							</element>
+     					</sequence>
+     				</complexType>
+      			</element>
+             </sequence>
+		     <attribute name="id" use="required">
+		      <simpleType>
+		         <restriction base="integer">
+		      		<minInclusive value="0"/>
+		         </restriction>
+		       </simpleType>
+		     </attribute> 
+    		</complexType>
+  		   </element>
+  		  </sequence>
+ 		</complexType>
+	   </element>	
+</schema>
